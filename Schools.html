@@ -1,0 +1,63 @@
+<div class="school-header">
+  <h1>Education for Every Child</h1>
+  <p>We partner with schools to bring hope and knowledge to children in need.</p>
+</div>
+
+<section class="school-programs container">
+  <h2>Our School Programs</h2>
+  <ul>
+    <li>📘 Book Donation Drives</li>
+    <li>👩‍🏫 Volunteer Teaching Programs</li>
+    <li>💻 Digital Learning Projects</li>
+  </ul>
+</section>
+
+<section class="partner-form container">
+  <h2>Become a School Partner</h2>
+  <form id="partnerForm">
+    <label for="schoolName">School Name</label>
+    <input type="text" id="schoolName" required>
+
+    <label for="contactEmail">Contact Email</label>
+    <input type="email" id="contactEmail" required>
+
+    <button type="submit" class="btn-primary">Submit</button>
+  </form>
+
+  <div class="thanks" style="display:none;">
+    <p>Thank you for partnering with us! We'll contact you soon.</p>
+  </div>
+</section>
+
+<style>
+.school-header {
+  background: #cce3de;
+  padding: 60px 20px;
+  text-align: center;
+}
+.container {
+  max-width: 960px;
+  margin: auto;
+  padding: 40px 20px;
+}
+.partner-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+.btn-primary {
+  background: #005f73;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+}
+</style>
+
+<script>
+document.getElementById("partnerForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  document.querySelector(".thanks").style.display = "block";
+  document.getElementById("partnerForm").style.display = "none";
+});
+</script>

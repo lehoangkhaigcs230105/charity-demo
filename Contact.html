@@ -1,0 +1,60 @@
+<div class="contact-header">
+  <h1>Contact Save the Children</h1>
+  <p>We’re here to help. Reach out to us anytime.</p>
+</div>
+
+<form id="contactForm" class="contact-form">
+  <label for="fullName">Full Name</label>
+  <input type="text" id="fullName" required>
+
+  <label for="email">Email</label>
+  <input type="email" id="email" required>
+
+  <label for="message">Message</label>
+  <textarea id="message" rows="5" required></textarea>
+
+  <button type="submit" class="btn-primary">Send Message</button>
+</form>
+
+<section class="thankyou" style="display:none;">
+  <h2>Thank you!</h2>
+  <p>We’ve received your message and will respond soon.</p>
+</section>
+
+<style>
+.contact-header {
+  text-align: center;
+  padding: 60px 20px;
+  background: #fefae0;
+}
+.contact-form {
+  max-width: 500px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px;
+}
+.contact-form input,
+.contact-form textarea {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+.btn-primary {
+  background: #d62828;
+  color: white;
+  padding: 12px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+</style>
+
+<script>
+document.getElementById("contactForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  document.querySelector(".contact-form").style.display = "none";
+  document.querySelector(".thankyou").style.display = "block";
+});
+</script>
