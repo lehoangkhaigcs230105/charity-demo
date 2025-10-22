@@ -1,218 +1,83 @@
-<!-- 🎁 Save the Children | Donate Page -->
-<div class="hero-section donate-hero">
-  <div class="overlay">
-    <h1>Your Donation Matters</h1>
-    <p>Together, we can ensure every child has the opportunity to thrive.</p>
-    <a href="/sites/save-the-children-S-CAM/SitePages/Contact.aspx" class="btn-primary">Get in Touch</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Donate - Save the Children</title>
+  <style>
+    body {font-family: 'Segoe UI', sans-serif; margin: 0; background: #f8f9fa;}
+    header {
+      background: #e63946;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {margin: 0;}
+    .container {
+      max-width: 600px;
+      background: white;
+      margin: 50px auto;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    h2 {text-align: center; margin-bottom: 30px; color: #333;}
+    label {display: block; margin-bottom: 5px; color: #555;}
+    input, select {
+      width: 100%; padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      width: 100%;
+      background: #e63946;
+      color: white;
+      padding: 15px;
+      border: none;
+      border-radius: 30px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {background: #d62828;}
+    .note {text-align: center; color: #555; font-size: 0.9rem;}
+    footer {text-align: center; padding: 30px; background: #333; color: white;}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Make a Donation</h1>
+  </header>
+
+  <div class="container">
+    <h2>Your Gift Makes an Impact</h2>
+    <form>
+      <label for="amount">Donation Amount (USD)</label>
+      <select id="amount" name="amount">
+        <option value="25">$25</option>
+        <option value="50">$50</option>
+        <option value="100">$100</option>
+        <option value="250">$250</option>
+        <option value="other">Other</option>
+      </select>
+
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" placeholder="Your full name">
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="Your email">
+
+      <label for="message">Message (optional)</label>
+      <input type="text" id="message" name="message" placeholder="Write a short message">
+
+      <button type="submit">Donate Now</button>
+    </form>
+    <p class="note">Every dollar helps us support children around the world. Thank you for your generosity!</p>
   </div>
-</div>
 
-<section class="donate-intro container fade-in">
-  <h2>Why Donate?</h2>
-  <p>
-    Every dollar you give helps fund vital programs in education, healthcare, and child protection. 
-    With your support, we’re changing the lives of children across the world — one community at a time.
-  </p>
-</section>
-
-<section class="donate-options container fade-in">
-  <h2>Choose How You Want to Help</h2>
-  <div class="donate-grid">
-    <div class="donate-card">
-      <img src="/sites/save-the-children-S-CAM/SiteAssets/donate-education.jpg" alt="Donate for Education" />
-      <h3>Support Education</h3>
-      <p>Help children access quality education and learning tools.</p>
-      <a href="#" class="btn-secondary">Donate $25</a>
-    </div>
-    <div class="donate-card">
-      <img src="/sites/save-the-children-S-CAM/SiteAssets/donate-health.jpg" alt="Donate for Healthcare" />
-      <h3>Provide Healthcare</h3>
-      <p>Fund medical kits, vaccines, and nutrition programs for children.</p>
-      <a href="#" class="btn-secondary">Donate $50</a>
-    </div>
-    <div class="donate-card">
-      <img src="/sites/save-the-children-S-CAM/SiteAssets/donate-emergency.jpg" alt="Emergency Relief" />
-      <h3>Emergency Relief</h3>
-      <p>Support families during natural disasters and humanitarian crises.</p>
-      <a href="#" class="btn-secondary">Donate $100</a>
-    </div>
-  </div>
-</section>
-
-<section class="donate-callout fade-in">
-  <div class="overlay">
-    <h2>“Your kindness brings hope to children in need.”</h2>
-    <a href="/sites/save-the-children-S-CAM/SitePages/Contact.aspx" class="btn-primary">Become a Monthly Donor</a>
-  </div>
-</section>
-
-<footer class="footer">
-  <div class="footer-links">
-    <a href="/sites/save-the-children-S-CAM/SitePages/Home.aspx">Home</a>
-    <a href="/sites/save-the-children-S-CAM/SitePages/Schools.aspx">Schools</a>
-    <a href="/sites/save-the-children-S-CAM/SitePages/Contact.aspx">Contact</a>
-  </div>
-  <p>&copy; 2025 Save the Children – All Rights Reserved</p>
-</footer>
-
-<style>
-/* 🌍 GLOBAL STYLE */
-body {
-  font-family: "Segoe UI", Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background: #fafafa;
-  color: #333;
-}
-
-/* 🎁 HERO SECTION */
-.donate-hero {
-  background: url('/sites/save-the-children-S-CAM/SiteAssets/hero-donate.jpg') center/cover no-repeat;
-  height: 80vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-.hero-section .overlay {
-  background: rgba(0, 0, 0, 0.55);
-  padding: 60px 20px;
-  text-align: center;
-  color: white;
-  border-radius: 10px;
-}
-.hero-section h1 {
-  font-size: 3rem;
-  margin-bottom: 15px;
-}
-.hero-section p {
-  font-size: 1.2rem;
-  margin-bottom: 25px;
-}
-.btn-primary {
-  background: #d62828;
-  color: #fff;
-  padding: 14px 30px;
-  text-decoration: none;
-  border-radius: 6px;
-  font-weight: bold;
-  transition: all 0.3s ease;
-}
-.btn-primary:hover {
-  background: #b71c1c;
-}
-
-/* ✨ SECONDARY BUTTON */
-.btn-secondary {
-  background: #f77f00;
-  color: white;
-  padding: 10px 20px;
-  text-decoration: none;
-  border-radius: 6px;
-  font-weight: 600;
-  display: inline-block;
-  margin-top: 10px;
-  transition: all 0.3s ease;
-}
-.btn-secondary:hover {
-  background: #c56000;
-}
-
-/* 📦 CONTAINERS */
-.container {
-  max-width: 1100px;
-  margin: auto;
-  padding: 60px 20px;
-  text-align: center;
-}
-
-/* 💖 INTRO SECTION */
-.donate-intro h2 {
-  color: #d62828;
-  font-size: 2rem;
-}
-.donate-intro p {
-  color: #555;
-  line-height: 1.8;
-  margin-top: 10px;
-}
-
-/* 💵 DONATE OPTIONS */
-.donate-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
-  margin-top: 40px;
-}
-.donate-card {
-  background: #fff;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-}
-.donate-card:hover {
-  transform: translateY(-5px);
-}
-.donate-card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-.donate-card h3 {
-  color: #d62828;
-  margin: 15px;
-}
-.donate-card p {
-  margin: 0 15px 20px;
-  color: #555;
-}
-
-/* 🌈 CALL-TO-ACTION SECTION */
-.donate-callout {
-  background: url('/sites/save-the-children-S-CAM/SiteAssets/hero-banner.jpg') center/cover no-repeat;
-  height: 60vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  color: white;
-  text-align: center;
-}
-.donate-callout .overlay {
-  background: rgba(0, 0, 0, 0.6);
-  padding: 50px 30px;
-  border-radius: 10px;
-}
-
-/* ⚡ FOOTER */
-.footer {
-  background: #333;
-  color: #fff;
-  padding: 30px 0;
-}
-.footer-links {
-  margin-bottom: 10px;
-}
-.footer-links a {
-  color: #fff;
-  margin: 0 10px;
-  text-decoration: none;
-}
-.footer-links a:hover {
-  text-decoration: underline;
-}
-
-/* ✨ ANIMATIONS */
-.fade-in {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeIn 1.2s ease-out forwards;
-}
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-</style>
+  <footer>
+    <p>© 2025 Save the Children S-CAM | <a href="index.html" style="color:#f1faee;">Home</a></p>
+  </footer>
+</body>
+</html>

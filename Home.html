@@ -1,209 +1,174 @@
-<!-- 🌍 Save the Children | Home Page -->
-<div class="hero-section">
-  <div class="overlay">
-    <h1>Together We Change Lives</h1>
-    <p>Join <strong>Save the Children</strong> to create a better future for every child.</p>
-    <a href="/sites/save-the-children-S-CAM/SitePages/Donate.aspx" class="btn-primary">Donate Now</a>
-  </div>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Save the Children - Home</title>
+  <style>
+    * {margin: 0; padding: 0; box-sizing: border-box;}
+    body {font-family: 'Segoe UI', sans-serif; color: #333; line-height: 1.6;}
 
-<section class="mission container fade-in">
-  <h2>Our Mission</h2>
-  <p>
-    We believe every child deserves a healthy start, an opportunity to learn, and protection from harm.
-    Through community programs, education, and emergency aid, we help children reach their full potential.
-  </p>
-</section>
+    /* --- HERO SECTION --- */
+    .hero {
+      background: url('https://raw.githubusercontent.com/lehoangkhaigcs230105/charity-demo/master/pic/larm-rmah-AEaTUnvneik-unsplash-scaled.jpg') center/cover no-repeat;
+      height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      position: relative;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+      padding: 20px;
+    }
+    .hero h1 {font-size: 3rem; margin-bottom: 15px;}
+    .hero p {font-size: 1.2rem; margin-bottom: 25px;}
+    .hero a {
+      display: inline-block;
+      background: #e63946;
+      color: white;
+      padding: 12px 30px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    .hero a:hover {background: #d62828;}
 
-<section class="impact-stats container fade-in">
-  <h2>Our Global Impact</h2>
-  <div class="stats-grid">
-    <div class="stat-card">
-      <h3>120+</h3>
-      <p>Countries Reached</p>
+    /* --- IMPACT SECTION --- */
+    .impact {
+      padding: 80px 20px;
+      background: #f8f9fa;
+      text-align: center;
+    }
+    .impact h2 {font-size: 2.2rem; margin-bottom: 40px;}
+    .stats {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+    .stat {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 250px;
+      transition: transform 0.3s;
+    }
+    .stat:hover {transform: translateY(-5px);}
+    .stat h3 {font-size: 2rem; color: #e63946;}
+    .stat p {font-weight: bold; color: #333;}
+
+    /* --- STORIES SECTION --- */
+    .stories {
+      padding: 80px 20px;
+      text-align: center;
+    }
+    .stories h2 {font-size: 2.2rem; margin-bottom: 40px;}
+    .story-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .story {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    .story:hover {transform: scale(1.02);}
+    .story img {width: 100%; height: 200px; object-fit: cover;}
+    .story-content {padding: 20px;}
+    .story-content h3 {margin-bottom: 10px; color: #e63946;}
+    .story-content p {color: #555;}
+
+    /* --- FOOTER --- */
+    footer {
+      background: #333;
+      color: white;
+      text-align: center;
+      padding: 30px 10px;
+    }
+    footer a {color: #f1faee; text-decoration: none;}
+    footer a:hover {text-decoration: underline;}
+
+    @media(max-width: 600px) {
+      .hero h1 {font-size: 2rem;}
+      .hero p {font-size: 1rem;}
+    }
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Together We Can Make a Difference</h1>
+      <p>Helping children around the world to build a brighter future.</p>
+      <a href="Donate.html">Donate Now</a>
     </div>
-    <div class="stat-card">
-      <h3>200M+</h3>
-      <p>Children Helped Since 1919</p>
+  </section>
+
+  <section class="impact">
+    <h2>Our Global Impact</h2>
+    <div class="stats">
+      <div class="stat">
+        <h3>5,000+</h3>
+        <p>Children Educated</p>
+      </div>
+      <div class="stat">
+        <h3>120+</h3>
+        <p>Communities Supported</p>
+      </div>
+      <div class="stat">
+        <h3>$1M+</h3>
+        <p>Funds Raised</p>
+      </div>
     </div>
-    <div class="stat-card">
-      <h3>1,000+</h3>
-      <p>Local Projects</p>
+  </section>
+
+  <section class="stories">
+    <h2>Stories of Change</h2>
+    <div class="story-grid">
+      <div class="story">
+        <img src="https://images.unsplash.com/photo-1559027615-5c1b4b77d6b9" alt="Story 1">
+        <div class="story-content">
+          <h3>Hope in Education</h3>
+          <p>Thanks to your support, thousands of children can now attend school with proper supplies.</p>
+        </div>
+      </div>
+      <div class="story">
+        <img src="https://images.unsplash.com/photo-1542810634-71277d95dcbb" alt="Story 2">
+        <div class="story-content">
+          <h3>Clean Water Access</h3>
+          <p>New wells have been built in rural areas, giving safe water to families in need.</p>
+        </div>
+      </div>
+      <div class="story">
+        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f" alt="Story 3">
+        <div class="story-content">
+          <h3>Healthcare for All</h3>
+          <p>Medical missions provide vaccines and treatments for underprivileged children.</p>
+        </div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="stories container fade-in">
-  <h2>Stories of Change</h2>
-  <div class="stories-grid">
-    <div class="story-card">
-      <img src="https://raw.githubusercontent.com/lehoangkhaigcs230105/charity-demo/master/pic/larm-rmah-AEaTUnvneik-unsplash-scaled.jpg" alt="Child Education" />
-      <h3>Education in Vietnam</h3>
-      <p>Over 1,000 children returned to school after floods, thanks to your support.</p>
-    </div>
-    <div class="story-card">
-      <img src="/sites/save-the-children-S-CAM/SiteAssets/children-africa.jpg" alt="Healthcare" />
-      <h3>Health for Every Child</h3>
-      <p>We provide medical care and vaccines to children in remote communities.</p>
-    </div>
-  </div>
-</section>
-
-<footer class="footer">
-  <div class="footer-links">
-    <a href="/sites/save-the-children-S-CAM/SitePages/Schools.aspx">Schools</a>
-    <a href="/sites/save-the-children-S-CAM/SitePages/Contact.aspx">Contact</a>
-    <a href="/sites/save-the-children-S-CAM/SitePages/Donate.aspx">Donate</a>
-  </div>
-  <p>&copy; 2025 Save the Children – All Rights Reserved</p>
-</footer>
-
-<style>
-/* 🌍 GLOBAL STYLES */
-body {
-  font-family: "Segoe UI", Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background: #fafafa;
-  color: #333;
-}
-
-/* 🌟 HERO SECTION */
-.hero-section {
-  background: url('/sites/save-the-children-S-CAM/SiteAssets/hero-banner.jpg') center/cover no-repeat;
-  height: 90vh;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.hero-section .overlay {
-  background: rgba(0, 0, 0, 0.55);
-  padding: 60px 20px;
-  text-align: center;
-  color: white;
-  border-radius: 10px;
-}
-.hero-section h1 {
-  font-size: 3rem;
-  margin-bottom: 15px;
-}
-.hero-section p {
-  font-size: 1.2rem;
-  margin-bottom: 25px;
-}
-.btn-primary {
-  background: #d62828;
-  color: #fff;
-  padding: 14px 30px;
-  text-decoration: none;
-  border-radius: 6px;
-  font-weight: bold;
-  transition: all 0.3s ease;
-}
-.btn-primary:hover {
-  background: #b71c1c;
-}
-
-/* 🧭 CONTAINERS */
-.container {
-  max-width: 1100px;
-  margin: auto;
-  padding: 60px 20px;
-  text-align: center;
-}
-
-/* 🎯 MISSION SECTION */
-.mission h2 {
-  color: #d62828;
-  font-size: 2rem;
-}
-.mission p {
-  line-height: 1.8;
-  margin-top: 10px;
-  color: #555;
-}
-
-/* 🌏 IMPACT STATS */
-.stats-grid {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  flex-wrap: wrap;
-}
-.stat-card {
-  background: #fff;
-  border-radius: 12px;
-  padding: 30px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-  width: 200px;
-}
-.stat-card h3 {
-  color: #d62828;
-  font-size: 2rem;
-  margin: 0;
-}
-.stat-card p {
-  margin-top: 10px;
-  color: #666;
-}
-
-/* 💬 STORIES SECTION */
-.stories-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
-  margin-top: 30px;
-}
-.story-card {
-  background: #fff;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-  text-align: left;
-}
-.story-card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-.story-card h3 {
-  color: #d62828;
-  margin: 15px;
-}
-.story-card p {
-  margin: 0 15px 20px;
-  color: #555;
-}
-
-/* ⚡ FOOTER */
-.footer {
-  background: #333;
-  color: #fff;
-  padding: 30px 0;
-}
-.footer-links {
-  margin-bottom: 10px;
-}
-.footer-links a {
-  color: #fff;
-  margin: 0 10px;
-  text-decoration: none;
-}
-.footer-links a:hover {
-  text-decoration: underline;
-}
-
-/* ✨ ANIMATIONS */
-.fade-in {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeIn 1.2s ease-out forwards;
-}
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-</style>
+  <footer>
+    <p>© 2025 Save the Children S-CAM | <a href="Donate.html">Donate</a> | <a href="#">Contact Us</a></p>
+  </footer>
+</body>
+</html>
