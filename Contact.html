@@ -32,6 +32,9 @@
       cursor: pointer;
       border-radius: 5px;
     }
+    .btn-primary:hover {
+      background: #b91c1c;
+    }
     .thankyou {
       text-align: center;
       padding: 60px 20px;
@@ -65,7 +68,8 @@
   </section>
 
   <script>
-    const webhookUrl = "https://default3516f40a5ae94956bbab395162e589.ce.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/c6e688852f704a2c949e93fcaea9b98a/triggers/manual/paths/invoke?api-version=1";
+    // 🔗 Flow webhook URL mới (Power Automate)
+    const webhookUrl = "https://default3516f40a5ae94956bbab395162e589.ce.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/7db6900b486a4a6796428187eb7edafb/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=PMc8J_ZN69z7DTI6pzwPLb7Bv7JGAQn9dkkflt6vljU";
 
     document.getElementById("contactForm").addEventListener("submit", async function(e) {
       e.preventDefault();
@@ -75,11 +79,7 @@
       const message = document.getElementById("message").value.trim();
 
       // Dữ liệu gửi đến Power Automate
-      const data = { 
-        fullName, 
-        email, 
-        message 
-      };
+      const data = { fullName, email, message };
 
       try {
         const response = await fetch(webhookUrl, {
