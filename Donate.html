@@ -43,6 +43,7 @@
     button:hover {background: #d62828;}
     .note {text-align: center; color: #555; font-size: 0.9rem;}
     footer {text-align: center; padding: 30px; background: #333; color: white;}
+    #statusMessage { text-align:center; margin-top:15px; font-weight:bold; }
   </style>
 </head>
 <body>
@@ -52,9 +53,9 @@
 
   <div class="container">
     <h2>Your Gift Makes an Impact</h2>
-    <form>
+    <form id="donateForm">
       <label for="amount">Donation Amount (USD)</label>
-      <select id="amount" name="amount">
+      <select id="amount" name="amount" required>
         <option value="25">$25</option>
         <option value="50">$50</option>
         <option value="100">$100</option>
@@ -63,21 +64,61 @@
       </select>
 
       <label for="name">Full Name</label>
-      <input type="text" id="name" name="name" placeholder="Your full name">
+      <input type="text" id="name" name="name" placeholder="Your full name" required>
 
       <label for="email">Email</label>
-      <input type="email" id="email" name="email" placeholder="Your email">
+      <input type="email" id="email" name="email" placeholder="Your email" required>
 
       <label for="message">Message (optional)</label>
       <input type="text" id="message" name="message" placeholder="Write a short message">
 
       <button type="submit">Donate Now</button>
     </form>
+    <p id="statusMessage"></p>
     <p class="note">Every dollar helps us support children around the world. Thank you for your generosity!</p>
   </div>
 
   <footer>
     <p>© 2025 Save the Children S-CAM | <a href="Home.html" style="color:#f1faee;">Home</a></p>
   </footer>
+
+  <script>
+    const flowUrl = "https://default3516f40a5ae94956bbab395162e589.ce.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/70d954ae84cf4262a2e66cfe3dda0cd3/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=8-_7vox2F7ocv9zvHO9GBgEW-Wfuw9Yl7xBU9-VNr5E";
+
+    document.getElementById("donateForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+
+      const data = {
+        fullName: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        amount: document.getElementById("amount").value,
+        message: document.getElementById("message").value
+      };
+
+      const status = document.getElementById("statusMessage");
+      status.style.color = "#333";
+      status.innerText = "⏳ Sending donation...";
+
+      try {
+        const res = await fetch(flowUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        });
+
+        if (res.ok) {
+          status.style.color = "green";
+          status.innerText = "🎉 Thank you! Your donation has been submitted successfully.";
+          document.getElementById("donateForm").reset();
+        } else {
+          status.style.color = "red";
+          status.innerText = "⚠️ There was a problem sending your donation. Please try again.";
+        }
+      } catch (error) {
+        status.style.color = "red";
+        status.innerText = "❌ Network error. Please check your connection.";
+      }
+    });
+  </script>
 </body>
 </html>
