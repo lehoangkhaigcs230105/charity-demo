@@ -44,6 +44,7 @@
     .note {text-align: center; color: #555; font-size: 0.9rem;}
     footer {text-align: center; padding: 30px; background: #333; color: white;}
     #statusMessage { text-align:center; margin-top:15px; font-weight:bold; }
+    #customAmountContainer { display:none; }
   </style>
 </head>
 <body>
@@ -62,6 +63,12 @@
         <option value="250">$250</option>
         <option value="other">Other</option>
       </select>
+
+      <!-- Custom amount input (ẩn ban đầu) -->
+      <div id="customAmountContainer">
+        <label for="customAmount">Enter Custom Amount (USD)</label>
+        <input type="number" id="customAmount" name="customAmount" min="1" placeholder="Enter your amount">
+      </div>
 
       <label for="name">Full Name</label>
       <input type="text" id="name" name="name" placeholder="Your full name" required>
@@ -85,13 +92,34 @@
   <script>
     const flowUrl = "https://default3516f40a5ae94956bbab395162e589.ce.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/70d954ae84cf4262a2e66cfe3dda0cd3/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=8-_7vox2F7ocv9zvHO9GBgEW-Wfuw9Yl7xBU9-VNr5E";
 
+    const amountSelect = document.getElementById("amount");
+    const customContainer = document.getElementById("customAmountContainer");
+    const customAmountInput = document.getElementById("customAmount");
+
+    // Khi người dùng chọn "Other" → hiển thị ô nhập tiền
+    amountSelect.addEventListener("change", () => {
+      if (amountSelect.value === "other") {
+        customContainer.style.display = "block";
+        customAmountInput.required = true;
+      } else {
+        customContainer.style.display = "none";
+        customAmountInput.value = "";
+        customAmountInput.required = false;
+      }
+    });
+
     document.getElementById("donateForm").addEventListener("submit", async function(e) {
       e.preventDefault();
+
+      // Lấy giá trị thực tế (nếu chọn other thì lấy customAmount)
+      let amountValue = amountSelect.value === "other" 
+        ? customAmountInput.value 
+        : amountSelect.value;
 
       const data = {
         fullName: document.getElementById("name").value,
         email: document.getElementById("email").value,
-        amount: document.getElementById("amount").value,
+        amount: amountValue,
         message: document.getElementById("message").value
       };
 
@@ -110,6 +138,7 @@
           status.style.color = "green";
           status.innerText = "🎉 Thank you! Your donation has been submitted successfully.";
           document.getElementById("donateForm").reset();
+          customContainer.style.display = "none";
         } else {
           status.style.color = "red";
           status.innerText = "⚠️ There was a problem sending your donation. Please try again.";
