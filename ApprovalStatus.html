@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Donation Approval - Save the Children S-CAM</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #f8f9fa;
+    }
+    header {
+      background: #e63946;
+      color: white;
+      text-align: center;
+      padding: 25px;
+    }
+    h1 { margin: 0; }
+    .container {
+      max-width: 800px;
+      background: white;
+      margin: 60px auto;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    .status-icon {
+      font-size: 80px;
+      margin-bottom: 20px;
+    }
+    .accepted {
+      color: #2d6a4f;
+    }
+    .rejected {
+      color: #d62828;
+    }
+    h2 {
+      margin-top: 0;
+      color: #333;
+    }
+    p {
+      color: #555;
+      line-height: 1.6;
+    }
+    .btn {
+      display: inline-block;
+      background: #e63946;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 20px;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: #d62828;
+    }
+    footer {
+      background: #333;
+      color: #fff;
+      text-align: center;
+      padding: 25px;
+      margin-top: 50px;
+    }
+    footer a {
+      color: #f1faee;
+      text-decoration: none;
+      margin: 0 8px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Donation Approval Status</h1>
+  </header>
+
+  <div class="container" id="statusContainer">
+    <div class="status-icon">⏳</div>
+    <h2>Processing your request...</h2>
+    <p>Please wait while we confirm your donation status.</p>
+  </div>
+
+  <footer>
+    <p>© 2025 Save the Children S-CAM |
+      <a href="Home.html">Home</a> |
+      <a href="Donate.html">Donate</a> |
+      <a href="About.html">About</a> |
+      <a href="Contact.html">Contact</a>
+    </p>
+  </footer>
+
+  <script>
+    // Giả lập Power Automate webhook callback: ?status=accepted hoặc ?status=rejected
+    const params = new URLSearchParams(window.location.search);
+    const status = params.get("status");
+    const container = document.getElementById("statusContainer");
+
+    if (status === "accepted") {
+      container.innerHTML = `
+        <div class="status-icon accepted">✅</div>
+        <h2>Donation Approved!</h2>
+        <p>Thank you for your generosity. Your donation has been successfully approved and recorded.</p>
+        <a href="Home.html" class="btn">Return to Home</a>
+      `;
+    } else if (status === "rejected") {
+      container.innerHTML = `
+        <div class="status-icon rejected">❌</div>
+        <h2>Donation Rejected</h2>
+        <p>Unfortunately, your donation request could not be processed at this time. Please try again later or contact support.</p>
+        <a href="Donate.html" class="btn">Try Again</a>
+      `;
+    }
+  </script>
+</body>
+</html>
