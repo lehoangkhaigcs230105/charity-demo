@@ -118,6 +118,42 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* Footer */
+    footer {
+      background: #222;
+      color: #f1faee;
+      text-align: center;
+      padding: 30px 15px;
+      margin-top: 60px;
+    }
+
+    footer p {
+      margin: 10px 0;
+      font-size: 0.95rem;
+    }
+
+    footer a {
+      color: #f1faee;
+      text-decoration: none;
+      font-weight: 500;
+      margin: 0 10px;
+      transition: color 0.3s;
+    }
+
+    footer a:hover {
+      color: #ffcccb;
+      text-decoration: underline;
+    }
+
+    .footer-divider {
+      display: inline-block;
+      width: 1px;
+      height: 14px;
+      background: #f1faee;
+      margin: 0 8px;
+      opacity: 0.6;
+    }
+
     /* Responsive */
     @media (max-width: 600px) {
       .contact-header h1 {
@@ -156,6 +192,19 @@
     <p>Your message has been sent successfully. We’ll get back to you soon.</p>
   </section>
 
+  <footer>
+    <p>
+      <a href="Home.html">Home</a>
+      <span class="footer-divider"></span>
+      <a href="About.html">About Us</a>
+      <span class="footer-divider"></span>
+      <a href="Donate.html">Donate</a>
+      <span class="footer-divider"></span>
+      <a href="Contact.html">Contact Us</a>
+    </p>
+    <p>© 2025 Save the Children S-CAM. All rights reserved.</p>
+  </footer>
+
   <script>
     // 🔗 Power Automate Webhook URL
     const webhookUrl =
@@ -189,7 +238,6 @@
       }
     });
   </script>
-  <p>© 2025 Save the Children S-CAM  | <a href="Contact.html">Contact Us</a>| <a href="About.html">About Us</a></p>
-  </footer>
+
 </body>
 </html>
