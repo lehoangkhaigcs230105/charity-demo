@@ -30,12 +30,8 @@
       font-size: 80px;
       margin-bottom: 20px;
     }
-    .accepted {
-      color: #2d6a4f;
-    }
-    .rejected {
-      color: #d62828;
-    }
+    .accepted { color: #2d6a4f; }
+    .rejected { color: #d62828; }
     h2 {
       margin-top: 0;
       color: #333;
@@ -78,9 +74,9 @@
   </header>
 
   <div class="container" id="statusContainer">
-    <div class="status-icon">⏳</div>
-    <h2>Processing your request...</h2>
-    <p>Please wait while we confirm your donation status.</p>
+    <div class="status-icon">💸</div>
+    <h2>Checking Donation...</h2>
+    <p>Please wait while we send your donation for approval.</p>
   </div>
 
   <footer>
@@ -93,26 +89,62 @@
   </footer>
 
   <script>
-    // Giả lập Power Automate webhook callback: ?status=accepted hoặc ?status=rejected
     const params = new URLSearchParams(window.location.search);
-    const status = params.get("status");
+    const name = params.get("name") || "Anonymous";
+    const amount = parseFloat(params.get("amount")) || 0;
+
     const container = document.getElementById("statusContainer");
 
-    if (status === "accepted") {
-      container.innerHTML = `
-        <div class="status-icon accepted">✅</div>
-        <h2>Donation Approved!</h2>
-        <p>Thank you for your generosity. Your donation has been successfully approved and recorded.</p>
-        <a href="Home.html" class="btn">Return to Home</a>
-      `;
-    } else if (status === "rejected") {
-      container.innerHTML = `
-        <div class="status-icon rejected">❌</div>
-        <h2>Donation Rejected</h2>
-        <p>Unfortunately, your donation request could not be processed at this time. Please try again later or contact support.</p>
-        <a href="Donate.html" class="btn">Try Again</a>
-      `;
+    // 🌐 URL endpoint của Power Automate HTTP trigger
+    const FLOW_URL = "https://default3516f40a5ae94956bbab395162e589.ce.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/8212f0b7af5d4236ab19790b13d63004/triggers/manual/paths/invoke?api-version=1";
+
+    async function sendDonation() {
+      try {
+        const response = await fetch(FLOW_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, amount })
+        });
+
+        if (!response.ok) throw new Error("Flow call failed");
+
+        const result = await response.json();
+        const status = result.status?.toLowerCase(); // flow trả về status: "Accepted" hoặc "Rejected"
+
+        if (status === "accepted") {
+          container.innerHTML = `
+            <div class="status-icon accepted">✅</div>
+            <h2>Donation Approved!</h2>
+            <p>Thank you, <strong>${name}</strong>! Your donation of <strong>$${amount.toFixed(2)}</strong> has been approved.</p>
+            <a href="Home.html" class="btn">Return to Home</a>
+          `;
+        } else if (status === "rejected") {
+          container.innerHTML = `
+            <div class="status-icon rejected">❌</div>
+            <h2>Donation Rejected</h2>
+            <p>Sorry, your donation of <strong>$${amount.toFixed(2)}</strong> could not be approved (must be ≥ $25).</p>
+            <a href="Donate.html" class="btn">Try Again</a>
+          `;
+        } else {
+          container.innerHTML = `
+            <div class="status-icon">⚠️</div>
+            <h2>Unknown Response</h2>
+            <p>The flow did not return a clear result.</p>
+            <a href="Donate.html" class="btn">Go Back</a>
+          `;
+        }
+      } catch (error) {
+        container.innerHTML = `
+          <div class="status-icon rejected">🚫</div>
+          <h2>Error Sending Donation</h2>
+          <p>Unable to connect to Power Automate. Please try again later.</p>
+          <a href="Donate.html" class="btn">Retry</a>
+        `;
+      }
     }
+
+    // Gửi request khi trang load
+    sendDonation();
   </script>
 </body>
 </html>
