@@ -93,7 +93,7 @@
   </footer>
 
   <script>
-    // 🌐 Link Power Automate Flow mới
+    // 🌐 Power Automate Flow URL mới
     const flowUrl = "https://default3516f40a5ae94956bbab395162e589.ce.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/40d61a8d1cc14b238e84e2dc0c6c0ee4/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=RioBNk0r8yu4D1LvsuNP3jrzt2u2Kwk9emiL_bohdj4";
 
     const amountSelect = document.getElementById("amount");
@@ -112,7 +112,7 @@
       }
     });
 
-    // 🔄 Gửi và chuyển hướng sang trang ApprovalStatus.html
+    // 🔄 Gửi dữ liệu sang trang ApprovalStatus.html
     document.getElementById("donateForm").addEventListener("submit", async function(e) {
       e.preventDefault();
 
@@ -120,11 +120,16 @@
         ? customAmountInput.value 
         : amountSelect.value;
 
-      const name = document.getElementById("name").value;
-      const email = document.getElementById("email").value;
-      const message = document.getElementById("message").value;
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const message = document.getElementById("message").value.trim();
 
-      // Dữ liệu cần gửi sang trang kế tiếp
+      if (!email.includes("@")) {
+        alert("Please enter a valid email address.");
+        return;
+      }
+
+      // Gửi dữ liệu sang trang trạng thái duyệt
       const query = new URLSearchParams({
         name,
         email,
