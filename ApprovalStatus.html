@@ -9,12 +9,14 @@
       font-family: 'Segoe UI', sans-serif;
       margin: 0;
       background: #f8f9fa;
+      transition: background 0.5s ease;
     }
     header {
       background: #e63946;
       color: white;
       text-align: center;
       padding: 25px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
     }
     h1 { margin: 0; }
     .container {
@@ -25,13 +27,21 @@
       border-radius: 12px;
       box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
       text-align: center;
+      transition: all 0.4s ease-in-out;
     }
     .status-icon {
-      font-size: 80px;
+      font-size: 90px;
       margin-bottom: 20px;
+      animation: pop 0.6s ease;
     }
-    .accepted { color: #2d6a4f; }
-    .rejected { color: #d62828; }
+    @keyframes pop {
+      0% { transform: scale(0.3); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .approved { color: #2d6a4f; }
+    .autoapproved { color: #1d3557; }
+    .rejected { color: #e63946; }
+    .error { color: #9d0208; }
     h2 {
       margin-top: 0;
       color: #333;
@@ -39,6 +49,7 @@
     p {
       color: #555;
       line-height: 1.6;
+      font-size: 1.05rem;
     }
     .btn {
       display: inline-block;
@@ -51,9 +62,7 @@
       margin-top: 20px;
       transition: background 0.3s;
     }
-    .btn:hover {
-      background: #d62828;
-    }
+    .btn:hover { background: #d62828; }
     footer {
       background: #333;
       color: #fff;
@@ -66,6 +75,19 @@
       text-decoration: none;
       margin: 0 8px;
     }
+    .loader {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #e63946;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      margin: 20px auto;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
   </style>
 </head>
 <body>
@@ -74,9 +96,9 @@
   </header>
 
   <div class="container" id="statusContainer">
-    <div class="status-icon">💸</div>
-    <h2>Checking Donation...</h2>
-    <p>Please wait while we send your donation for approval.</p>
+    <div class="loader"></div>
+    <h2>Processing your donation...</h2>
+    <p>Please wait while we submit your donation for approval.</p>
   </div>
 
   <footer>
@@ -91,60 +113,67 @@
   <script>
     const params = new URLSearchParams(window.location.search);
     const name = params.get("name") || "Anonymous";
+    const email = params.get("email") || "unknown@example.com";
     const amount = parseFloat(params.get("amount")) || 0;
+    const message = params.get("message") || "";
 
     const container = document.getElementById("statusContainer");
 
-    // 🌐 URL endpoint của Power Automate HTTP trigger
-    const FLOW_URL = "https://default3516f40a5ae94956bbab395162e589.ce.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/8212f0b7af5d4236ab19790b13d63004/triggers/manual/paths/invoke?api-version=1";
+    // 🌐 Power Automate HTTP trigger URL (flow của bạn)
+    const FLOW_URL =
+      "https://default3516f40a5ae94956bbab395162e589.ce.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/40d61a8d1cc14b238e84e2dc0c6c0ee4/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=RioBNk0r8yu4D1LvsuNP3jrzt2u2Kwk9emiL_bohdj4";
 
     async function sendDonation() {
       try {
         const response = await fetch(FLOW_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, amount })
+          body: JSON.stringify({ name, email, amount, message })
         });
 
         if (!response.ok) throw new Error("Flow call failed");
-
         const result = await response.json();
-        const status = result.status?.toLowerCase(); // flow trả về status: "Accepted" hoặc "Rejected"
+        const status = (result.status || "").toLowerCase();
 
-        if (status === "accepted") {
+        if (status === "approved") {
+          document.body.style.background = "#f1faee";
           container.innerHTML = `
-            <div class="status-icon accepted">✅</div>
+            <div class="status-icon approved">✅</div>
             <h2>Donation Approved!</h2>
-            <p>Thank you, <strong>${name}</strong>! Your donation of <strong>$${amount.toFixed(2)}</strong> has been approved.</p>
+            <p>Thank you, <strong>${name}</strong>! Your generous donation of <strong>$${amount.toFixed(2)}</strong> has been approved and will make a positive impact.</p>
             <a href="Home.html" class="btn">Return to Home</a>
           `;
         } else if (status === "rejected") {
+          document.body.style.background = "#ffe5e5";
           container.innerHTML = `
             <div class="status-icon rejected">❌</div>
             <h2>Donation Rejected</h2>
-            <p>Sorry, your donation of <strong>$${amount.toFixed(2)}</strong> could not be approved (must be ≥ $25).</p>
+            <p>Sorry, <strong>${name}</strong>. Your donation of <strong>$${amount.toFixed(2)}</strong> could not be approved (must be at least $25).</p>
             <a href="Donate.html" class="btn">Try Again</a>
           `;
         } else {
+          document.body.style.background = "#edf6f9";
           container.innerHTML = `
-            <div class="status-icon">⚠️</div>
-            <h2>Unknown Response</h2>
-            <p>The flow did not return a clear result.</p>
-            <a href="Donate.html" class="btn">Go Back</a>
+            <div class="status-icon autoapproved">💖</div>
+            <h2>Donation Received!</h2>
+            <p>Thank you, <strong>${name}</strong>! Your donation of <strong>$${amount.toFixed(2)}</strong> has been processed automatically.</p>
+            <a href="Home.html" class="btn">Back to Home</a>
           `;
         }
       } catch (error) {
+        document.body.style.background = "#fce9e9";
         container.innerHTML = `
-          <div class="status-icon rejected">🚫</div>
-          <h2>Error Sending Donation</h2>
-          <p>Unable to connect to Power Automate. Please try again later.</p>
+          <div class="status-icon error">🚫</div>
+          <h2>Connection Error</h2>
+          <p>Unable to reach our server or Power Automate Flow. Please check your internet connection or try again later.</p>
           <a href="Donate.html" class="btn">Retry</a>
         `;
       }
     }
 
-    // Gửi request khi trang load
+    // 🚀 Gửi request khi trang load
     sendDonation();
   </script>
+
 </body>
 </html>

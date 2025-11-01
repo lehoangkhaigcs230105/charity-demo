@@ -64,7 +64,6 @@
         <option value="other">Other</option>
       </select>
 
-      <!-- Custom amount input (ẩn ban đầu) -->
       <div id="customAmountContainer">
         <label for="customAmount">Enter Custom Amount (USD)</label>
         <input type="number" id="customAmount" name="customAmount" min="1" placeholder="Enter your amount">
@@ -86,17 +85,22 @@
   </div>
 
   <footer>
-    <p>© 2025 Save the Children S-CAM | <a href="Home.html" style="color:#f1faee;">Home</a>| <a href="About.html"  style="color:#f1faee;">About Us| <a href="Contact.html"  style="color:#f1faee;">Contact us</a></p>
+    <p>© 2025 Save the Children S-CAM |
+      <a href="Home.html" style="color:#f1faee;">Home</a> |
+      <a href="About.html" style="color:#f1faee;">About Us</a> |
+      <a href="Contact.html" style="color:#f1faee;">Contact</a>
+    </p>
   </footer>
 
   <script>
-    const flowUrl = "https://default3516f40a5ae94956bbab395162e589.ce.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/70d954ae84cf4262a2e66cfe3dda0cd3/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=8-_7vox2F7ocv9zvHO9GBgEW-Wfuw9Yl7xBU9-VNr5E";
+    // 🌐 Link Power Automate Flow mới
+    const flowUrl = "https://default3516f40a5ae94956bbab395162e589.ce.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/40d61a8d1cc14b238e84e2dc0c6c0ee4/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=RioBNk0r8yu4D1LvsuNP3jrzt2u2Kwk9emiL_bohdj4";
 
     const amountSelect = document.getElementById("amount");
     const customContainer = document.getElementById("customAmountContainer");
     const customAmountInput = document.getElementById("customAmount");
 
-    // Khi người dùng chọn "Other" → hiển thị ô nhập tiền
+    // Hiển thị ô nhập nếu chọn "Other"
     amountSelect.addEventListener("change", () => {
       if (amountSelect.value === "other") {
         customContainer.style.display = "block";
@@ -108,45 +112,28 @@
       }
     });
 
+    // 🔄 Gửi và chuyển hướng sang trang ApprovalStatus.html
     document.getElementById("donateForm").addEventListener("submit", async function(e) {
       e.preventDefault();
 
-      // Lấy giá trị thực tế (nếu chọn other thì lấy customAmount)
       let amountValue = amountSelect.value === "other" 
         ? customAmountInput.value 
         : amountSelect.value;
 
-      const data = {
-        fullName: document.getElementById("name").value,
-        email: document.getElementById("email").value,
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const message = document.getElementById("message").value;
+
+      // Dữ liệu cần gửi sang trang kế tiếp
+      const query = new URLSearchParams({
+        name,
+        email,
         amount: amountValue,
-        message: document.getElementById("message").value
-      };
+        message
+      }).toString();
 
-      const status = document.getElementById("statusMessage");
-      status.style.color = "#333";
-      status.innerText = "⏳ Sending donation...";
-
-      try {
-        const res = await fetch(flowUrl, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data)
-        });
-
-        if (res.ok) {
-          status.style.color = "green";
-          status.innerText = "🎉 Thank you! Your donation has been submitted successfully.";
-          document.getElementById("donateForm").reset();
-          customContainer.style.display = "none";
-        } else {
-          status.style.color = "red";
-          status.innerText = "⚠️ There was a problem sending your donation. Please try again.";
-        }
-      } catch (error) {
-        status.style.color = "red";
-        status.innerText = "❌ Network error. Please check your connection.";
-      }
+      // 👉 Chuyển sang trang hiển thị kết quả duyệt
+      window.location.href = `ApprovalStatus.html?${query}`;
     });
   </script>
 </body>
